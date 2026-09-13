@@ -154,6 +154,9 @@ def submit_feedback(
     prediction_id: int,
     body: dict = Body(..., examples=[{"label": "cssvd"}]),
 ):
+    if prediction_id <= 0:
+        raise HTTPException(status_code=400, detail="prediction_id must be a positive integer.")
+
     label = body.get("label")
     if label not in classifier.classes:
         raise HTTPException(
