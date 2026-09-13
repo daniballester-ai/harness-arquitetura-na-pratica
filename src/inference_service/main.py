@@ -16,6 +16,7 @@ from .model import SUPPORTED_CONTENT_TYPES, InvalidImageError, LeafClassifier, c
 from .schemas import FeedbackResponse, HealthResponse, HistoryResponse, PredictResponse, StatsResponse
 
 SESSION_COOKIE = "session_token"
+MAX_UPLOAD_BYTES = 8 * 1024 * 1024  # 8 MB
 
 
 def require_user(session_token: str | None = Cookie(default=None, alias=SESSION_COOKIE)) -> int:
@@ -71,6 +72,12 @@ async def predict(file: UploadFile = File(...), user_id: int = Depends(require_u
         )
 
     image_bytes = await file.read()
+    if len(image_bytes) > MAX_UPLOAD_BYTES:
+        raise HTTPException(
+            status_code=413,
+            detail=f"File too large. Max size is {MAX_UPLOAD_BYTES // (1024 * 1024)}MB.",
+        )
+
     try:
         result = classifier.predict(image_bytes)
     except InvalidImageError as exc:
