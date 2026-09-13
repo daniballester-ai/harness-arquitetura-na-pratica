@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+
+# Runtime-generated prediction history (SQLite + uploaded images)
+history/
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+
+# Secrets
+.env
+*.env
