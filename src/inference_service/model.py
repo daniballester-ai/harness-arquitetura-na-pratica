@@ -76,7 +76,9 @@ class LeafClassifier:
 
         model = efficientnet_b0(weights=None)
         model.classifier[1] = nn.Linear(model.classifier[1].in_features, len(self.classes))
-        state_dict = torch.load(os.path.join(models_dir, "cacao_leaf_classifier.pt"), map_location="cpu")
+        state_dict = torch.load(
+            os.path.join(models_dir, "cacao_leaf_classifier.pt"), map_location="cpu", weights_only=True
+        )
         model.load_state_dict(state_dict)
         model.eval()
         self.model = model
