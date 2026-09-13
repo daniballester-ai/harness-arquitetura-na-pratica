@@ -1,6 +1,6 @@
 # Log da sessão do agente — Harness e Arquitetura na Prática
 
-Transcript resumido (extraído do JSONL bruto da sessão do Claude Code), a partir do momento em que esta atividade começou. Mensagens de usuário e do agente na íntegra (respostas do agente truncadas em ~2000 caracteres para manter o arquivo legível); chamadas de ferramenta aparecem só pelo nome, sem os argumentos/resultados completos (que incluem binários e conteúdo irrelevante para auditoria). Não foi editado além disso, conforme pedido.
+Transcript resumido (extraído do JSONL bruto da sessão do Claude Code), do início desta atividade (Etapa 1) até o Relatório Final (Etapa 8). Mensagens de usuário e do agente na íntegra (respostas do agente truncadas em ~2000 caracteres); chamadas de ferramenta aparecem só pelo nome. Não editado além disso.
 
 ---
 
@@ -5932,3 +5932,202 @@ Vou exportar um log legível da transcrição da sessão (o arquivo bruto tem 32
 _[2026-09-13T22:14:18.889Z] ferramenta usada: `Write`_
 
 _[2026-09-13T22:14:35.354Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:14:56.310Z] AGENTE
+540KB é grande, mas cobre a conversa inteira desde o início da sessão — inclusive trabalho anterior não relacionado a esta atividade. Vou cortar para começar de onde a atividade "Harness e Arquitetura" começou.
+
+
+_[2026-09-13T22:14:57.248Z] ferramenta usada: `Bash`_
+
+_[2026-09-13T22:15:14.951Z] ferramenta usada: `Bash`_
+
+_[2026-09-13T22:15:35.373Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:16:01.467Z] AGENTE
+Agora a tarefa 9: definir e simular um checkpoint humano obrigatório. Vou usar **"antes de expor um novo endpoint HTTP publicamente"**, aplicando a proposta OpenSpec do `/version` (da Etapa 1) como o caso real.
+
+
+_[2026-09-13T22:16:01.999Z] ferramenta usada: `Bash`_
+
+_[2026-09-13T22:16:20.645Z] ferramenta usada: `Edit`_
+
+_[2026-09-13T22:16:38.830Z] ferramenta usada: `Bash`_
+
+_[2026-09-13T22:16:55.767Z] ferramenta usada: `Edit`_
+
+### [2026-09-13T22:18:48.011Z] AGENTE
+Adiciono um teste rápido e rodo a suíte completa antes de parar no checkpoint.
+
+
+_[2026-09-13T22:18:49.383Z] ferramenta usada: `Write`_
+
+_[2026-09-13T22:19:07.721Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:19:52.580Z] AGENTE
+Todos os 55 testes passam. Agora **paro aqui, no checkpoint definido** — não vou commitar nem "mesclar" (expor publicamente) até sua decisão explícita.
+
+
+_[2026-09-13T22:19:53.077Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:20:10.525Z] AGENTE
+## 🛑 Checkpoint humano obrigatório
+
+**Checkpoint definido:** antes de expor um novo endpoint HTTP publicamente (commit/merge para `main`), um humano do grupo revisa o diff e decide explicitamente: **aprovar / editar / rejeitar**. Nenhum endpoint novo entra no repositório só porque os testes passaram.
+
+**Situação:** implementei o endpoint `GET /version` (da proposta OpenSpec da Etapa 1) — 55/55 testes passam, incluindo o novo. Está pronto para commit, mas **parei aqui**, sem commitar, esperando sua decisão.
+
+**Diff pendente de aprovação:**
+- `src/inference_service/model.py`: expõe `self.architecture`
+- `src/inference_service/main.py`: novo endpoint `GET /version` (sem autenticação, retorna versão da API + arquitetura do modelo)
+- `tests/test_version_api.py`: 1 teste novo
+
+
+_[2026-09-13T22:20:14.685Z] ferramenta usada: `AskUserQuestion`_
+
+### [2026-09-13T22:20:45.178Z] AGENTE
+Aprovado. Vou commitar e registrar a decisão.
+
+
+_[2026-09-13T22:20:48.349Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:21:04.862Z] AGENTE
+Agora escrevo o registro do checkpoint (documento da Etapa 3).
+
+
+_[2026-09-13T22:21:13.670Z] ferramenta usada: `Write`_
+
+### [2026-09-13T22:22:13.935Z] AGENTE
+Vou marcar as tarefas da proposta OpenSpec como concluídas e arquivar a mudança, já que foi implementada.
+
+
+_[2026-09-13T22:22:14.534Z] ferramenta usada: `Read`_
+
+_[2026-09-13T22:22:31.002Z] ferramenta usada: `Edit`_
+
+_[2026-09-13T22:27:23.280Z] ferramenta usada: `Bash`_
+
+_[2026-09-13T22:27:38.780Z] ferramenta usada: `Read`_
+
+_[2026-09-13T22:27:55.439Z] ferramenta usada: `Write`_
+
+### [2026-09-13T22:28:12.838Z] AGENTE
+Agora commito tudo da Etapa 3.
+
+
+_[2026-09-13T22:28:13.265Z] ferramenta usada: `Bash`_
+
+_[2026-09-13T22:28:33.833Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:28:57.190Z] AGENTE
+## Etapa 3 concluída e publicada
+
+- **Log da sessão** (`docs/sessao-log.md`): transcript resumido (mensagens usuário/agente + nomes de ferramentas usadas), extraído do JSONL bruto, do início desta atividade até agora. Vou reexportar isso no final da atividade para cobrir as etapas restantes.
+- **Checkpoint humano simulado**: implementei o endpoint `/version` (retomando a proposta OpenSpec da Etapa 1), parei antes de commitar, e pedi sua decisão explícita — você aprovou, e só então o commit foi criado. Tudo registrado em `docs/etapa3-checkpoint.md`.
+- Mudança OpenSpec `add-version-endpoint` arquivada e sincronizada no spec principal.
+
+Pronto para a **Etapa 4 (Revisão Arquitetural com Apoio de IA)** quando você quiser seguir.
+
+
+### [2026-09-13T22:29:26.433Z] USUÁRIO
+pode avançar, só me dê antes um prazo para finalizar, pois preciso fazer a entrega ainda hoje
+
+
+### [2026-09-13T22:29:47.891Z] AGENTE
+Estimativa realista para terminar tudo (Etapas 4 a 8 + relatório final): **~45–60 minutos** de trabalho contínuo daqui. É tranquilo para hoje. Vou seguir direto sem pausas desnecessárias, só te avisando nos pontos que exigem decisão sua (como os checkpoints já combinados).
+
+Avançando para a **Etapa 4 — Revisão Arquitetural**.
+
+
+_[2026-09-13T22:29:48.876Z] ferramenta usada: `Bash`_
+
+_[2026-09-13T22:30:06.710Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:30:36.733Z] AGENTE
+Agora gero o resumo da arquitetura (com meu apoio de IA) e a decisão justificada.
+
+
+_[2026-09-13T22:30:58.091Z] ferramenta usada: `Write`_
+
+_[2026-09-13T22:31:17.884Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:31:34.340Z] AGENTE
+Etapa 4 pronta. Avançando para a **Etapa 5 — ADR + Diagrama**.
+
+
+_[2026-09-13T22:31:35.017Z] ferramenta usada: `Bash`_
+
+_[2026-09-13T22:32:08.114Z] ferramenta usada: `Write`_
+
+### [2026-09-13T22:32:37.978Z] AGENTE
+Vou gerar o diagrama C4 de duas formas diferentes, para comparar.
+
+
+_[2026-09-13T22:32:55.841Z] ferramenta usada: `Write`_
+
+_[2026-09-13T22:35:39.668Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:36:02.355Z] AGENTE
+Agora a **Etapa 6**. Vou escolher a Opção A (dívida técnica) — rodar uma ferramenta de análise estática real sobre o código.
+
+
+_[2026-09-13T22:36:03.120Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:36:23.829Z] AGENTE
+Instalado. Vou rodar ambos sobre o código real.
+
+
+_[2026-09-13T22:36:24.316Z] ferramenta usada: `Bash`_
+
+_[2026-09-13T22:36:44.455Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:36:59.546Z] AGENTE
+Agora bandit, focado em segurança (mais útil para achar dívida técnica de risco real, não só estilo):
+
+
+_[2026-09-13T22:37:00.126Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:37:19.701Z] AGENTE
+Achado real e relevante: **uso inseguro de `torch.load`** (B614, severidade média, confiança alta) — risco real de execução de código arbitrário se o arquivo `.pt` for adulterado. Vou verificar a correção antes de documentar.
+
+
+_[2026-09-13T22:37:20.616Z] ferramenta usada: `Bash`_
+
+_[2026-09-13T22:37:40.706Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:38:01.468Z] AGENTE
+A correção funciona sem quebrar nada. Vou aplicar a mitigação e documentar tudo.
+
+
+_[2026-09-13T22:38:01.947Z] ferramenta usada: `Bash`_
+
+_[2026-09-13T22:38:21.301Z] ferramenta usada: `Edit`_
+
+_[2026-09-13T22:41:57.268Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:42:37.253Z] AGENTE
+Todos os testes continuam passando. Agora documento a Etapa 6.
+
+
+_[2026-09-13T22:42:48.571Z] ferramenta usada: `Write`_
+
+_[2026-09-13T22:43:14.956Z] ferramenta usada: `Bash`_
+
+### [2026-09-13T22:43:38.933Z] AGENTE
+Etapa 7 (Git/GitHub) já está satisfeita — histórico real de commits ao longo de todas as etapas, no repositório público. Vou para a **Etapa 8 — Relatório Final**.
+
+
+_[2026-09-13T22:43:57.868Z] ferramenta usada: `Write`_
+
+### [2026-09-13T22:44:19.910Z] AGENTE
+Agora atualizo o README (marcar checklist) e reexporto o log de sessão completo até aqui.
+
+
+_[2026-09-13T22:44:20.278Z] ferramenta usada: `Read`_
+
+_[2026-09-13T22:44:44.334Z] ferramenta usada: `Edit`_
+
+### [2026-09-13T22:45:12.009Z] AGENTE
+Agora reexporto o log de sessão completo até o fim da atividade.
+
+
+_[2026-09-13T22:45:14.828Z] ferramenta usada: `Bash`_

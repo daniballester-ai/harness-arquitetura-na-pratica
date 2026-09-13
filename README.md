@@ -23,14 +23,14 @@ python -m pytest tests/ -v
 
 ## Entregáveis da atividade
 
-- [ ] **Etapa 1** — Comparação entre os dois modos de autonomia testados + hook funcional commitado, com evidência do bloqueio.
-- [ ] **Etapa 2** — Evidência do ciclo Red-Green-Refactor, relato da ferramenta de enforcement investigada, e comparação com/sem TDD.
-- [ ] **Etapa 3** — Log/transcript da sessão (`docs/sessao-log.md`) e registro do checkpoint humano simulado.
-- [ ] **Etapa 4** — Resumo da arquitetura atual (gerado com apoio de IA) e decisão arquitetural justificada.
-- [ ] **Etapa 5** — ADR (`docs/adr/`) e diagrama de arquitetura, com comparação entre duas versões do diagrama.
-- [ ] **Etapa 6** — Evidência da opção escolhida (dívida técnica, custo/performance, ou agentes em paralelo).
-- [ ] **Etapa 7** — Histórico de commits real, refletindo o processo (este arquivo).
-- [ ] **Etapa 8** — Relatório final de até 1 página (`docs/relatorio-final.md`).
+- [x] **Etapa 1** — Comparação entre os dois modos de autonomia testados (`docs/etapa1-comparacao-autonomia.md`) + hook funcional commitado (`.claude/hooks/guard-model-artifact.py`), com evidência de pipe-test (`docs/etapa1-hook-guardrail.md`); prova ao vivo no harness real fica pendente (ver relatório final, item 6).
+- [x] **Etapa 2** — Evidência do ciclo Red-Green-Refactor (`98bbe50`/`fa2f604`), relato da ferramenta de enforcement investigada (tdd-guard) e comparação com/sem TDD (`docs/etapa2-tdd.md`).
+- [x] **Etapa 3** — Log/transcript da sessão (`docs/sessao-log.md`) e registro do checkpoint humano simulado (`docs/etapa3-checkpoint.md`).
+- [x] **Etapa 4** — Resumo da arquitetura atual e decisão arquitetural justificada (`docs/etapa4-arquitetura.md`).
+- [x] **Etapa 5** — ADR (`docs/adr/0001-manter-monolito-modular.md`) e diagrama de arquitetura, com comparação entre duas versões (`docs/etapa5-diagramas.md`).
+- [x] **Etapa 6** — Dívida técnica: `torch.load` inseguro encontrado e corrigido (`docs/etapa6-divida-tecnica.md`).
+- [x] **Etapa 7** — Histórico de commits real, refletindo o processo (este repositório).
+- [x] **Etapa 8** — Relatório final de até 1 página (`docs/relatorio-final.md`).
 
 ## Estrutura
 
