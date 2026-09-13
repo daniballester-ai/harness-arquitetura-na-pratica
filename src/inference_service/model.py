@@ -65,6 +65,7 @@ class LeafClassifier:
             raise ValueError(f"Unsupported architecture in label_mapping.json: {mapping['architecture']}")
 
         self.classes = mapping["classes"]
+        self.architecture = mapping["architecture"]
         self.image_size = mapping["image_size"]
 
         self.transform = transforms.Compose([

@@ -54,6 +54,15 @@ def health():
     return {"status": "ok", "classes": classifier.classes}
 
 
+@app.get(
+    "/version",
+    summary="Check API and model version",
+    description="Returns the API version and the model architecture currently loaded.",
+)
+def version():
+    return {"api_version": "1.0.0", "model_architecture": classifier.architecture}
+
+
 @app.post(
     "/predict",
     response_model=PredictResponse,
