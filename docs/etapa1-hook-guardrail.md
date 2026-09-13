@@ -29,10 +29,20 @@ $ echo '{"tool_name":"Bash","tool_input":{"command":"ls -la models/cacao_leaf_cl
 
 Todos os 4 casos se comportaram como esperado: os 3 comandos destrutivos foram sinalizados para bloqueio, o comando de leitura não.
 
-## Limitação encontrada ao tentar provar o bloqueio ao vivo
+## Limitação encontrada no meio do caminho
 
-A sessão do agente usada para escrever este hook está vinculada ao projeto `CacauFito` (é onde a sessão do Claude Code foi aberta), não a este repositório. Hooks do Claude Code são carregados a partir do `.claude/settings.json` do **projeto em que a sessão está rodando** — então, mesmo operando nos arquivos deste repositório por caminho absoluto, o hook daqui não é consultado por aquela sessão.
+A sessão do agente usada para escrever este hook estava vinculada ao projeto `CacauFito` (é onde a sessão do Claude Code foi aberta originalmente), não a este repositório. Hooks do Claude Code são carregados a partir do `.claude/settings.json` do **projeto em que a sessão está rodando** — então, mesmo operando nos arquivos deste repositório por caminho absoluto, o hook daqui não era consultado por aquela sessão.
 
-Prova disso: tentei `mv models/cacao_leaf_classifier.pt models/cacao_leaf_classifier.pt.bak` a partir da sessão vinculada ao CacauFito — o comando **passou sem bloqueio** (o hook deste repositório não é carregado ali). O arquivo foi renomeado de volta manualmente na sequência, sem perda.
+Prova disso: tentei `mv models/cacao_leaf_classifier.pt models/cacao_leaf_classifier.pt.bak` a partir da sessão vinculada ao CacauFito — o comando **passou sem bloqueio** (o hook deste repositório não era carregado ali). O arquivo foi renomeado de volta manualmente na sequência, sem perda.
 
-**Ação pendente para fechar a evidência do deliverable**: abrir uma sessão do Claude Code (ou do editor com a extensão) com a raiz em `C:\Fitec\harness-arquitetura-na-pratica` e, de dentro dela, disparar de propósito um comando como `rm models/cacao_leaf_classifier.pt` — aí sim o `.claude/settings.json` deste repositório é carregado e o bloqueio real (com o diálogo de permissão negada) deve aparecer. O print/log dessa tentativa é a evidência final pedida pela Etapa 1.
+## Prova ao vivo (evidência final)
+
+Antes de testar o comando destrutivo de verdade, foi feita uma cópia de segurança do artefato (`models/cacao_leaf_classifier.pt.backup-teste`) como rede de proteção, já que um hook com defeito deixaria o `rm` apagar o arquivo de verdade.
+
+Uma sessão do Claude Code foi aberta com raiz em `C:\Fitec\harness-arquitetura-na-pratica` (não em `CacauFito`), e o comando `rm models/cacao_leaf_classifier.pt` foi disparado de propósito:
+
+![Hook bloqueando o rm do modelo](etapa1-hook-bloqueio-evidencia.png)
+
+O hook **bloqueou a ação de verdade**: a mensagem retornada foi exatamente a configurada em `guard-model-artifact.py` ("Bloqueado pelo hook guard-model-artifact: este comando afeta models/cacao_leaf_classifier.pt (o modelo treinado). Não há dataset/notebook local neste repositório..."), e o próprio agente, na resposta, recusou-se a contornar a proteção, oferecendo só as alternativas legítimas (apagar manualmente fora do agente, ou ajustar/desativar o hook em `.claude/settings.json`).
+
+Verificado depois: o arquivo `models/cacao_leaf_classifier.pt` permaneceu intacto (16.349.107 bytes, idêntico ao backup). O backup de segurança foi removido em seguida, já não sendo mais necessário.

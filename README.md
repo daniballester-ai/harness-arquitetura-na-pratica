@@ -23,7 +23,7 @@ python -m pytest tests/ -v
 
 ## Entregáveis da atividade
 
-- [x] **Etapa 1** — Comparação entre os dois modos de autonomia testados (`docs/etapa1-comparacao-autonomia.md`) + hook funcional commitado (`.claude/hooks/guard-model-artifact.py`), com evidência de pipe-test (`docs/etapa1-hook-guardrail.md`); prova ao vivo no harness real fica pendente (ver relatório final, item 6).
+- [x] **Etapa 1** — Comparação entre os dois modos de autonomia testados (`docs/etapa1-comparacao-autonomia.md`) + hook funcional commitado (`.claude/hooks/guard-model-artifact.py`), com evidência de pipe-test **e prova ao vivo do bloqueio** (`docs/etapa1-hook-guardrail.md` + print em `docs/etapa1-hook-bloqueio-evidencia.png`).
 - [x] **Etapa 2** — Evidência do ciclo Red-Green-Refactor (`98bbe50`/`fa2f604`), relato da ferramenta de enforcement investigada (tdd-guard) e comparação com/sem TDD (`docs/etapa2-tdd.md`).
 - [x] **Etapa 3** — Log/transcript da sessão (`docs/sessao-log.md`) e registro do checkpoint humano simulado (`docs/etapa3-checkpoint.md`).
 - [x] **Etapa 4** — Resumo da arquitetura atual e decisão arquitetural justificada (`docs/etapa4-arquitetura.md`).
